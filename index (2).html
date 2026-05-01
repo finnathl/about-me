@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finn Kotauschek – Fitness & Coaching</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --dark: #111111;
+    --card: #161616;
+    --border: rgba(255,255,255,0.08);
+    --white: #f0ece4;
+    --accent: #e8ff3c;
+    --muted: rgba(240,236,228,0.5);
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 60px;
+  }
+  .hero-image {
+    position: relative;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: brightness(0.85);
+  }
+  .hero-image-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    background: linear-gradient(160deg, #1c1c1c 0%, #0f0f0f 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    color: rgba(255,255,255,0.15);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .hero-image-placeholder svg { opacity: 0.2; }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, transparent 60%, var(--black) 100%);
+  }
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 4rem 5rem 3rem;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.35rem 0.9rem;
+    border-radius: 2px;
+    margin-bottom: 1.8rem;
+    width: fit-content;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+  }
+  .hero-title span { color: var(--accent); }
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 38ch;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    display: block;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 2rem;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.25s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--black);
+  }
+  .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--white); transform: translateY(-2px); }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  /* SECTION BASE */
+  section { padding: 7rem 0; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; }
+
+  .section-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ABOUT */
+  .about { background: var(--dark); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .about-text p {
+    font-size: 1rem;
+    color: rgba(240,236,228,0.75);
+    margin-bottom: 1.2rem;
+    line-height: 1.8;
+  }
+  .about-text p:last-of-type { margin-bottom: 2rem; }
+  .about-image {
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    background: #1c1c1c;
+  }
+  .about-image img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); }
+  .about-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.8rem;
+    color: rgba(255,255,255,0.1);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .accent-line {
+    position: absolute;
+    top: 1.5rem; left: -1.5rem;
+    width: 3rem; height: 3px;
+    background: var(--accent);
+  }
+
+  /* JOURNEY */
+  .journey { background: var(--black); }
+  .journey-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .journey-image {
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    background: #1c1c1c;
+  }
+  .journey-image img { width: 100%; height: 100%; object-fit: cover; }
+  .journey-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.8rem;
+    color: rgba(255,255,255,0.1);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .quote-block {
+    border-left: 2px solid var(--accent);
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    background: rgba(232,255,60,0.04);
+  }
+  .quote-block p {
+    font-size: 1rem;
+    color: var(--white);
+    line-height: 1.7;
+    font-style: italic;
+  }
+  .journey-text p {
+    font-size: 1rem;
+    color: rgba(240,236,228,0.75);
+    margin-bottom: 1.2rem;
+    line-height: 1.8;
+  }
+
+  /* COACHING */
+  .coaching { background: var(--dark); }
+  .coaching-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+    align-items: end;
+  }
+  .coaching-intro {
+    font-size: 1rem;
+    color: rgba(240,236,228,0.7);
+    line-height: 1.8;
+  }
+  .coaching-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .coaching-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 2rem;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .coaching-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .card-num {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: rgba(232,255,60,0.15);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--white);
+    margin-bottom: 0.6rem;
+  }
+  .card-text {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .coaching-cta {
+    text-align: center;
+    padding: 3rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+  }
+  .coaching-cta p {
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    max-width: 50ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: var(--accent);
+    padding: 5rem 0;
+    text-align: center;
+  }
+  .cta-banner h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--black);
+    line-height: 1;
+    margin-bottom: 1rem;
+    letter-spacing: 0.02em;
+  }
+  .cta-banner p {
+    font-size: 1rem;
+    color: rgba(10,10,10,0.65);
+    margin-bottom: 2rem;
+    max-width: 45ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .btn-dark {
+    background: var(--black);
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.95rem 2.2rem;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+  .btn-dark:hover { background: #1a1a1a; transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    border-top: 1px solid var(--border);
+    padding: 3rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-decoration: none;
+  }
+  .footer-links { display: flex; gap: 1.5rem; align-items: center; }
+  .footer-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .footer-links a:hover { color: var(--white); }
+  .footer-copy {
+    font-size: 0.72rem;
+    color: rgba(240,236,228,0.25);
+    letter-spacing: 0.05em;
+  }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-image { min-height: 50vh; }
+    .hero-content { padding: 3rem 1.5rem; }
+    .hero-stats { gap: 1.5rem; }
+    .about-grid, .journey-grid, .coaching-header { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-image, .journey-image { aspect-ratio: 4/3; }
+    .coaching-cards { grid-template-columns: 1fr; }
+    section { padding: 4rem 0; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">FINN.ATHL</a>
+  <div class="nav-links">
+    <a href="#about">Über mich</a>
+    <a href="#coaching">Coaching</a>
+    <a href="https://taplink.cc/finn.athl" target="_blank">Links</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-image">
+    <!-- DEIN HERO-FOTO: Ersetze den Platzhalter mit: <img src="dein-foto.jpg" alt="Finn Kotauschek"> -->
+    <div class="hero-image-placeholder">
+      <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      Dein Foto hier<br>
+      <span style="font-size:0.65rem;opacity:0.6">Hero-Bild (z.B. Gym-Action-Shot)</span>
+    </div>
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag">Fitness & 1:1 Coaching</div>
+    <h1 class="hero-title">
+      FINN<br>
+      <span>KOTAT-</span><br>
+      SCHEK
+    </h1>
+    <p class="hero-sub">22 Jahre. 3 Jahre Gym. Vom Skinny Boy zur besten Version meiner selbst – und jetzt helfe ich dir, deinen eigenen Weg zu finden.</p>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">3+</span>
+        <span class="stat-label">Jahre Training</span>
+      </div>
+      <div>
+        <span class="stat-num">6×</span>
+        <span class="stat-label">die Woche</span>
+      </div>
+      <div>
+        <span class="stat-num">1:1</span>
+        <span class="stat-label">Coaching</span>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="https://finnathl.github.io/Fitness-Analyse/" target="_blank" class="btn btn-primary">
+        Jetzt starten
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://taplink.cc/finn.athl" target="_blank" class="btn btn-ghost">Alle Links</a>
+    </div>
+  </div>
+</section>
+
+<!-- ÜBER MICH -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <div class="section-label">Über mich</div>
+        <h2 class="section-title">Ich war<br>auch mal<br><span style="color:var(--accent)">dort.</span></h2>
+        <p>Wenn du hier bist, kennst du mich wahrscheinlich von Instagram. Ich bin Finn, 22 Jahre alt, und ich war lange genau da, wo du vielleicht gerade stehst – unsicher, ohne Plan, ohne echte Richtung.</p>
+        <p>Mit null Erfahrung habe ich angefangen. Skinny, gute Genetik – aber trotzdem hat mich der Weg ans Ziel nicht von alleine gefunden. Ich habe mich durchprobiert: verschiedene Trainingspläne, Massephasen, Cut-Phasen, unzählige Fehler. Bis ich irgendwann meinen eigenen Rhythmus gefunden habe.</p>
+        <p>Heute, 3 Jahre später und 6 Mal die Woche im Gym, lebe ich einen Alltag, den ich mir damals nicht vorstellen konnte. Und genau diese unnötigen Umwege möchte ich dir ersparen.</p>
+        <a href="#coaching" class="btn btn-primary" style="margin-top:0.5rem">
+          Mein Coaching
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="about-image reveal reveal-delay-2">
+        <div class="accent-line"></div>
+        <!-- FOTO 2: <img src="foto2.jpg" alt="Finn im Gym"> -->
+        <div class="about-image-placeholder">
+          <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          Foto 2 hier
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEIN WEG -->
+<section class="journey" id="journey">
+  <div class="container">
+    <div class="journey-grid">
+      <div class="journey-image reveal">
+        <!-- FOTO 3: <img src="foto3.jpg" alt="Training"> -->
+        <div class="journey-image-placeholder">
+          <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          Foto 3 hier
+        </div>
+      </div>
+      <div class="journey-text reveal reveal-delay-2">
+        <div class="section-label">Mein Weg</div>
+        <h2 class="section-title">Disziplin<br>schlägt<br><span style="color:var(--accent)">Talent.</span></h2>
+        <div class="quote-block">
+          <p>„Ich weiß, wie schwer der erste Schritt ist. Wie es sich anfühlt, sich im Spiegel nicht zu mögen. Das ist genau der Grund, warum ich das hier mache."</p>
+        </div>
+        <p>Gute Genetik reicht nicht. Was zählt, ist der richtige Plan – und jemand der dir zeigt, wie du ihn umsetzt. Nicht stumpf durchackern, sondern verstehen warum du was tust.</p>
+        <p>Ich habe 3 Jahre gebraucht, um meinen Weg zu finden. Du brauchst nicht so lange.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COACHING -->
+<section class="coaching" id="coaching">
+  <div class="container">
+    <div class="coaching-header reveal">
+      <div>
+        <div class="section-label">1:1 Coaching</div>
+        <h2 class="section-title">Dein Plan.<br>Dein Tempo.<br><span style="color:var(--accent)">Dein Ziel.</span></h2>
+      </div>
+      <p class="coaching-intro">Ich coache vor allem Leute, die im Skinny-Fat-Bereich starten – weil ich dort selbst war. Kein Copy-Paste-Plan. Alles individuell auf dich, deinen Alltag und deine Ziele zugeschnitten. Körperlich und mental.</p>
+    </div>
+    <div class="coaching-cards">
+      <div class="coaching-card reveal reveal-delay-1">
+        <div class="card-num">01</div>
+        <div class="card-title">Individueller Trainingsplan</div>
+        <p class="card-text">Abgestimmt auf deine Ziele, deinen Alltag und dein Level. Wir passen an was nicht passt.</p>
+      </div>
+      <div class="coaching-card reveal reveal-delay-2">
+        <div class="card-num">02</div>
+        <div class="card-title">Ernährungsstrategie</div>
+        <p class="card-text">Kein striktes Verzichten. Makros & Kalorienplan der zu deinem Leben passt – nicht umgekehrt.</p>
+      </div>
+      <div class="coaching-card reveal reveal-delay-3">
+        <div class="card-num">03</div>
+        <div class="card-title">Direkter Support</div>
+        <p class="card-text">Über die Coaching-App Nutrilize. Fragen, Feedback, Anpassungen – ich bin da.</p>
+      </div>
+    </div>
+    <div class="coaching-cta reveal">
+      <div class="section-label" style="text-align:center">Bereit?</div>
+      <p>Füll das kurze Analyse-Formular aus – 10 Fragen, keine Verbindlichkeit. Ich melde mich bei dir.</p>
+      <a href="https://finnathl.github.io/Fitness-Analyse/" target="_blank" class="btn btn-primary" style="font-size:0.85rem;padding:1rem 2.5rem">
+        Jetzt Analyse starten
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="container">
+    <h2>DEIN NEUES<br>KAPITEL BEGINNT.</h2>
+    <p>Der erste Schritt ist der schwerste. Danach bin ich bei dir.</p>
+    <a href="https://finnathl.github.io/Fitness-Analyse/" target="_blank" class="btn-dark">
+      Coaching anfragen
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#top" class="footer-logo">FINN.ATHL</a>
+  <div class="footer-links">
+    <a href="https://instagram.com/finn.athl/" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      @finn.athl
+    </a>
+    <a href="https://taplink.cc/finn.athl" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      Alle Links
+    </a>
+    <a href="https://finnathl.github.io/Fitness-Analyse/" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      Coaching starten
+    </a>
+  </div>
+  <span class="footer-copy">© 2025 Finn Kotauschek</span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
